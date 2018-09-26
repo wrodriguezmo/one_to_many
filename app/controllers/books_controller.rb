@@ -5,15 +5,9 @@ class BooksController < ApplicationController
     end
 
     def create
-        book = Book.new
         author = Autor.find(params[:author_id])
-        book.autor = author
-        book.name = params[:name]
-        book.code = params[:code]
-        book.save
-        puts "HHH"
-        puts book.to_json
-        puts "HHH"
+        book = Book.create(params.permit(:name, :code, :author_id))
+
         render json: book, status: :ok
     end
 end
